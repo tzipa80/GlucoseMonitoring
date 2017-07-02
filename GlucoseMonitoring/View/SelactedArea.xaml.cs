@@ -19,7 +19,20 @@ namespace GlucoseMonitoring.View
     /// Interaction logic for SelactedArea.xaml
     /// </summary>
     public partial class SelactedArea : UserControl
-    {
+    {// The part of the rectangle the mouse is over.
+        private enum HitType
+        {
+            None, Body, UL, UR, LR, LL
+        };
+
+        // The part of the rectangle under the mouse.
+        HitType MouseHitType = HitType.None;
+
+        // True if a drag is in progress.
+        private bool DragInProgress = false;
+
+        // The drag's last point.
+        private Point LastPoint;
         public SelactedArea()
         {
             InitializeComponent();
