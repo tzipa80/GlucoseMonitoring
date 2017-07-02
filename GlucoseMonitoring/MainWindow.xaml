@@ -11,9 +11,38 @@
         WindowTransitionsEnabled="False"
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
-        Title="MyXXXXXX" Height="850" Width="1225">
+        Title="MyXXXXXX" Height="850" Width="1225" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
 
+            <!-- First Button-->
+            <Button Content="FirstBtn" Click="Button_Click" />
+
+            <!-- Second Button-->
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cupcake}" />
+                        </Rectangle.OpacityMask>
+
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="deploy cupcakes" />
+                </StackPanel>
+            </Button>
+            <!-- Second Button END-->
+
+            <!-- Flyouts Button-->
+            <ToggleButton Content="Settings" 
+                      IsChecked="{Binding ElementName=yourMahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <Grid>
+        <Image x:Name="imgVideo" Stretch="Fill"/> 
         
     </Grid>
 </Controls:MetroWindow>

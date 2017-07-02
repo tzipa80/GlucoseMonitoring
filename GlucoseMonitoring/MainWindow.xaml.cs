@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using GlucoseMonitoring.Model;
 
 namespace GlucoseMonitoring
 {
@@ -24,6 +25,20 @@ namespace GlucoseMonitoring
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        WebCam webcam;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            webcam.Start();
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // TODO: Add event handler implementation here.
+            webcam = new WebCam();
+            webcam.InitializeWebCam(ref imgVideo);
         }
     }
 }
