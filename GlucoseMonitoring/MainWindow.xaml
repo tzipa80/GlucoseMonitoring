@@ -1,12 +1,19 @@
-﻿<Window x:Class="GlucoseMonitoring.MainWindow"
+﻿<Controls:MetroWindow x:Class="GlucoseMonitoring.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GlucoseMonitoring"
         mc:Ignorable="d"
-        Title="MainWindow" Height="950" Width="1525">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        ResizeMode="CanResizeWithGrip"
+        WindowTransitionsEnabled="False"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        Title="MyXXXXXX" Height="350" Width="525">
+
     <Grid>
         
     </Grid>
-</Window>
+</Controls:MetroWindow>
