@@ -46,8 +46,21 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid x:Name="MWgrid">
-        <Image x:Name="imgVideo" Stretch="Fill"/>
-        <custom_cntrls:SelectedArea  Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.333*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Stretch"
+              Background="{DynamicResource AccentColorBrush4}" 
+              ShowsPreview="True"
+              Width="5"
+              />
+
+        <Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/>
+        <custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
 
     </Grid>
 </Controls:MetroWindow>
