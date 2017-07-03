@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GlucoseMonitoring"
+        xmlns:custom_cntrls="clr-namespace:GlucoseMonitoring.View"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         GlowBrush="{DynamicResource AccentColorBrush}"
@@ -12,6 +13,9 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
         Title="MyXXXXXX" Height="850" Width="1225" Loaded="MetroWindow_Loaded">
+    
+    
+    
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
 
@@ -41,8 +45,9 @@
                       IsChecked="{Binding ElementName=yourMahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <Grid>
-        <Image x:Name="imgVideo" Stretch="Fill"/> 
-        
+    <Grid x:Name="MWgrid">
+        <Image x:Name="imgVideo" Stretch="Fill"/>
+        <custom_cntrls:SelectedArea  Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
+
     </Grid>
 </Controls:MetroWindow>

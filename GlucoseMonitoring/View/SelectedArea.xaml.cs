@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace GlucoseMonitoring.View
 {
     /// <summary>
-    /// Interaction logic for SelactedArea.xaml
+    /// Interaction logic for SelectedArea.xaml
     /// </summary>
-    public partial class SelactedArea : UserControl
+    public partial class SelectedArea : UserControl
     {// The part of the rectangle the mouse is over.
         private enum HitType
         {
@@ -33,9 +33,14 @@ namespace GlucoseMonitoring.View
 
         // The drag's last point.
         private Point LastPoint;
-        public SelactedArea()
+        public SelectedArea()
         {
             InitializeComponent();
         }
+
+
+
+
+
     }
 }

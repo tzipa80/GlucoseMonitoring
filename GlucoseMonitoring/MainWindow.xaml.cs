@@ -27,18 +27,18 @@ namespace GlucoseMonitoring
             InitializeComponent();
         }
 
-        WebCam webcam;
+        WebCam MWwebcam;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            webcam.Start();
+            MWwebcam.Start();
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             // TODO: Add event handler implementation here.
-            webcam = new WebCam();
-            webcam.InitializeWebCam(ref imgVideo);
+            MWwebcam = new WebCam();
+            MWwebcam.InitializeWebCam(ref imgVideo);
         }
     }
 }
