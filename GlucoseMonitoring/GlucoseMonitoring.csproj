@@ -70,6 +70,9 @@
     </ApplicationDefinition>
     <Compile Include="Model\Helper.cs" />
     <Compile Include="Model\WebCam.cs" />
+    <Compile Include="View\MainScreenCanvas.xaml.cs">
+      <DependentUpon>MainScreenCanvas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SelectedArea.xaml.cs">
       <DependentUpon>SelectedArea.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainScreenCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SADictionary.xaml">
       <SubType>Designer</SubType>

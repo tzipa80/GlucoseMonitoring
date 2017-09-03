@@ -14,9 +14,9 @@ namespace GlucoseMonitoring.Model
     class WebCam
     {
         private WebCamCapture webcam;
-        private System.Windows.Controls.Image _FrameImage;
+        private Image _FrameImage;               //System.Windows.Controls.
         private int FrameNumber = 30;
-        public void InitializeWebCam(ref System.Windows.Controls.Image ImageControl)
+        public void InitializeWebCam(ref Image ImageControl)     //System.Windows.Controls.
         {
             webcam = new WebCamCapture();
             webcam.FrameNumber = ((ulong)(0ul));

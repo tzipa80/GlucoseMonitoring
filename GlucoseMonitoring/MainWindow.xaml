@@ -13,9 +13,31 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
         Title="MyXXXXXX" Height="850" Width="1225" Loaded="MetroWindow_Loaded">
-    
-    
-    
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" /-->
+            </ResourceDictionary.MergedDictionaries>
+            <Ellipse x:Key="AppThemeMenuIcon"
+                     Width="16"
+                     Height="16"
+                     x:Shared="False"
+                     Fill="{Binding ColorBrush, Mode=OneWay}"
+                     Stroke="{Binding BorderColorBrush, Mode=OneWay}"
+                     StrokeThickness="1" />
+            
+            <Style x:Key="AppThemeMenuItemStyle"
+                   BasedOn="{StaticResource MetroMenuItem}"
+                   TargetType="{x:Type MenuItem}">
+                    <!--Setter Property="Command" Value="{Binding ChangeAccentCommand}" /-->
+                    <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+                    <Setter Property="Icon" Value="{StaticResource AppThemeMenuIcon}" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
 
@@ -26,10 +48,10 @@
             <Button>
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20"
-                   Height="20"
-                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                               Height="20"
+                               Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cupcake}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alien}" />
                         </Rectangle.OpacityMask>
 
                     </Rectangle>
@@ -45,6 +67,7 @@
                       IsChecked="{Binding ElementName=yourMahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
+    
     <Grid x:Name="MWgrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.333*"/>
@@ -59,8 +82,9 @@
               Width="5"
               />
 
-        <Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/>
+        <!--Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/-->
         <custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
 
+        <!--custom_cntrls:MainScreenCanvas x:Name="MW_MSC" Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
     </Grid>
 </Controls:MetroWindow>
