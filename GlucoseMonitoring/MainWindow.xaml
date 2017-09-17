@@ -83,8 +83,8 @@
               />
 
         <!--Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/-->
-        <custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
+        <!--custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
 
-        <!--custom_cntrls:MainScreenCanvas x:Name="MW_MSC" Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
+        <custom_cntrls:MainScreenCanvas x:Name="MW_MSC" Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
     </Grid>
 </Controls:MetroWindow>

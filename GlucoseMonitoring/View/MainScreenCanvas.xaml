@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:GlucoseMonitoring.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Name="MSCanvas" Background="Transparent" ClipToBounds="True">
-        <!--local:SelectedArea /-->
+    <Grid Name="MSGrid" Background="Transparent" ClipToBounds="True">
+        <local:SelectedArea />
 
 
     </Grid>

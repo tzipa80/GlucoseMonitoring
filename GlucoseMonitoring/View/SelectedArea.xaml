@@ -8,9 +8,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <Canvas Name="SACanvas" Background="Transparent" ClipToBounds="True">
-        <Border Name="SAborder" BorderBrush="{DynamicResource HighlightBrush}" BorderThickness="3" CornerRadius="5" Canvas.Left="110" Canvas.Top="110" MinWidth="50" MinHeight="50" Margin="0" Tag="Select"/>
-        <Rectangle x:Name="SARec" Stroke="{DynamicResource AccentColorBrush}" RadiusX="5" RadiusY="5" StrokeThickness="3" Margin="0" Width="100" Height="100" />
+    <Canvas Name="SACanvas" ClipToBounds="True" MouseDown="SACanvas_MouseDown" MouseMove="SACanvas_MouseMove" MouseUp="SACanvas_MouseUp">
+        <!--Border Name="SAborder" BorderBrush="{DynamicResource HighlightBrush}" BorderThickness="3" CornerRadius="5" Canvas.Left="110" Canvas.Top="110" MinWidth="50" MinHeight="50" Margin="0" Tag="Select"/-->
+        <Rectangle x:Name="SARec" Stroke="{DynamicResource AccentColorBrush}" Margin="0" StrokeThickness="3" Width="100" Height="100" Canvas.Left="150" Canvas.Top="150" />
 
 
 
