@@ -12,7 +12,8 @@
         WindowTransitionsEnabled="False"
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
-        Title="MyXXXXXX" Height="850" Width="1225" Loaded="MetroWindow_Loaded">
+        Title="{DynamicResource MainTitleStr}" Height="850" Width="1225"
+        Loaded="MetroWindow_Loaded">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -45,7 +46,7 @@
             <Button Content="FirstBtn" Click="Button_Click" />
 
             <!-- Second Button-->
-            <Button>
+            <Button Click="Button_Click_Settings">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20"
                                Height="20"
@@ -64,7 +65,7 @@
 
             <!-- Flyouts Button-->
             <ToggleButton Content="Settings" 
-                      IsChecked="{Binding ElementName=yourMahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
+                      IsChecked="{Binding ElementName=yourMahAppFlyout, Path=IsOpen}" Cursor="Hand" Click="ToggleButton_Click"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     
@@ -73,6 +74,10 @@
             <ColumnDefinition Width="0.333*"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition/>
+
+
+            <!--Controls:MetroAnimatedSingleRowTabControl x:Name="TabControl"-->
+
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1"
               HorizontalAlignment="Center"
@@ -82,6 +87,9 @@
               Width="5"
               />
 
+        <custom_cntrls:SecondScreenCanvas x:Name="SS_Canvas" Grid.Column="0" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
+        
+        
         <!--Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/-->
         <!--custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
 

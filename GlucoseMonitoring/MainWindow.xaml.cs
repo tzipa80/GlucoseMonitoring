@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using GlucoseMonitoring.Model;
 using MahApps.Metro;
-
+using GlucoseMonitoring.View;
 
 namespace GlucoseMonitoring
 {
@@ -34,7 +34,7 @@ namespace GlucoseMonitoring
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-          //  MWwebcam.Start();
+            MW_MSC.MWwebcam.Start();
            // var theme = ThemeManager.DetectAppStyle(Application.Current);
         }
 
@@ -43,6 +43,17 @@ namespace GlucoseMonitoring
             // TODO: Add event handler implementation here.
            // MWwebcam = new WebCam();
           //  MWwebcam.InitializeWebCam(ref imgVideo);
+        }
+
+        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            //MW_MSC.MWwebcam.ResolutionSetting();
+            MW_MSC.MWwebcam.AdvanceSetting();
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            MW_MSC.MWwebcam.ResolutionSetting();
         }
 
         /*

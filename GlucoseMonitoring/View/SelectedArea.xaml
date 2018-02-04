@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GlucoseMonitoring.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="480" d:DesignWidth="640" Height="Auto" Width="Auto">
 
 
     <Canvas Name="SACanvas" ClipToBounds="True" MouseDown="SACanvas_MouseDown" MouseMove="SACanvas_MouseMove" MouseUp="SACanvas_MouseUp">
         <!--Border Name="SAborder" BorderBrush="{DynamicResource HighlightBrush}" BorderThickness="3" CornerRadius="5" Canvas.Left="110" Canvas.Top="110" MinWidth="50" MinHeight="50" Margin="0" Tag="Select"/-->
-        <Rectangle x:Name="SARec" Stroke="{DynamicResource AccentColorBrush}" Margin="0" StrokeThickness="3" Width="100" Height="100" Canvas.Left="150" Canvas.Top="150" />
+        <Rectangle x:Name="SARec" Stroke="{DynamicResource AccentColorBrush}" Margin="0" StrokeThickness="3" Width="100" Height="100" Canvas.Left="150" Canvas.Top="150" Fill="Transparent"/>
 
-
+        <TextBlock Name="pakaz"  FontSize="30" Width="280" Height="40" Text="FFFFF" />
 
     </Canvas>
 </UserControl>

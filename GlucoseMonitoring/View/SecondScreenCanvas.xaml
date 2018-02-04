@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="GlucoseMonitoring.View.SecondScreenCanvas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GlucoseMonitoring.View"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+
+        <Controls:MetroAnimatedSingleRowTabControl x:Name="SSTabControl">
+  
+            
+            
+            <!--Controls:MetroAnimatedSingleRowTabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type Controls:MetroTabItem}" BasedOn="{StaticResource {x:Type Controls:MetroTabItem}}">
+                    <Setter Property="FontSize" Value="24"/>
+                </>
+            </-->
+
+            <TabControl.Resources>
+                <Style BasedOn="{StaticResource {x:Type TabItem}}" TargetType="{x:Type TabItem}">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <ContentPresenter Content="{TemplateBinding Content}">
+                                    <ContentPresenter.LayoutTransform>
+                                        <RotateTransform Angle="270" />
+                                    </ContentPresenter.LayoutTransform>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Controls:ControlsHelper.HeaderFontSize="24" Header="Video" >
+
+            </TabItem>
+            <Controls:MetroTabItem Header="Laser" CloseButtonEnabled="True" Background="Azure">
+                <StackPanel>
+                    <RadioButton IsChecked="True">iPhone S6</RadioButton>
+                    <RadioButton>LG G 4</RadioButton>
+                    <RadioButton>Lumia 550</RadioButton>
+                </StackPanel>
+                <!--exampleViews:TextExamples DataContext="{Binding}" /-->
+            </Controls:MetroTabItem>
+            <Controls:MetroTabItem Header="appe">
+                <TextBlock Name="appe_text"  FontSize="30" />
+            </Controls:MetroTabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+    </Grid>
+</UserControl>

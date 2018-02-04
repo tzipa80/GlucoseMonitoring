@@ -33,6 +33,8 @@ namespace GlucoseMonitoring.View
 
         // The drag's last point.
         private Point LastPoint;
+
+
         public SelectedArea()
         {
             InitializeComponent();
@@ -118,10 +120,13 @@ namespace GlucoseMonitoring.View
 
         private void SACanvas_MouseMove(object sender, MouseEventArgs e)
         {
+            //pakaz.Text = string.Format("{0} ; {1}", e.GetPosition(this).X.ToString("#.##"), e.GetPosition(this).Y.ToString("#.##"));
+
             if (DragInProgress)
             {
                 // See how much the mouse has moved.
                 Point point = Mouse.GetPosition(SACanvas);
+                //pakaz.Text = string.Format("{0} ; {1}", point.X.ToString("#"), point.Y.ToString("#"));
                 double offset_x = point.X - LastPoint.X;
                 double offset_y = point.Y - LastPoint.Y;
 
@@ -130,6 +135,7 @@ namespace GlucoseMonitoring.View
                 double new_y = Canvas.GetTop(SARec);
                 double new_width = SARec.Width;
                 double new_height = SARec.Height;
+                pakaz.Text = string.Format("{0} ; {1}", new_width.ToString("#"), new_height.ToString("#"));
 
                 // Update the rectangle.
                 switch (MouseHitType)

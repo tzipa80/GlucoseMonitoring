@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace GlucoseMonitoring.Model
 {
-    class WebCam
+    public class WebCam
     {
         private WebCamCapture webcam;
         private Image _FrameImage;               //System.Windows.Controls.

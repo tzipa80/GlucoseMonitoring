@@ -73,6 +73,9 @@
     <Compile Include="View\MainScreenCanvas.xaml.cs">
       <DependentUpon>MainScreenCanvas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SecondScreenCanvas.xaml.cs">
+      <DependentUpon>SecondScreenCanvas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SelectedArea.xaml.cs">
       <DependentUpon>SelectedArea.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SADictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SecondScreenCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
