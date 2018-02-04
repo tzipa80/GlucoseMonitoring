@@ -13,6 +13,8 @@ namespace GlucoseMonitoring.Model
 {
     public class WebCam
     {
+        //public event Action
+        //Predicate<Image> 
         private WebCamCapture webcam;
         private Image _FrameImage;               //System.Windows.Controls.
         private int FrameNumber = 30;
@@ -20,9 +22,12 @@ namespace GlucoseMonitoring.Model
         {
             webcam = new WebCamCapture();
             webcam.FrameNumber = ((ulong)(0ul));
+            webcam.CaptureHeight = 480;
+            webcam.CaptureWidth = 640;
             webcam.TimeToCapture_milliseconds = FrameNumber;
             webcam.ImageCaptured += new WebCamCapture.WebCamEventHandler(webcam_ImageCaptured);
             _FrameImage = ImageControl;
+
         }
 
         void webcam_ImageCaptured(object source, WebcamEventArgs e)

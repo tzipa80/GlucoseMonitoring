@@ -8,7 +8,7 @@
              d:DesignHeight="480" d:DesignWidth="640">
     <Grid Name="MSGrid" Background="Transparent" ClipToBounds="True">
         
-        <Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/>
+        <Image Name="imgVideo" Grid.Column="2" Stretch="Fill"/>
         <local:SelectedArea />
 
     </Grid>
