@@ -22,8 +22,8 @@ namespace GlucoseMonitoring.Model
         {
             webcam = new WebCamCapture();
             webcam.FrameNumber = ((ulong)(0ul));
-            webcam.CaptureHeight = 480;
-            webcam.CaptureWidth = 640;
+            webcam.CaptureHeight = 600;
+            webcam.CaptureWidth = 800;
             webcam.TimeToCapture_milliseconds = FrameNumber;
             webcam.ImageCaptured += new WebCamCapture.WebCamEventHandler(webcam_ImageCaptured);
             _FrameImage = ImageControl;

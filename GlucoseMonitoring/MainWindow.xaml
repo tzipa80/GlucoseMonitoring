@@ -12,9 +12,8 @@
         WindowTransitionsEnabled="False"
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
-        Title="{DynamicResource MainTitleStr}" Height="850" Width="1225"
-        Loaded="MetroWindow_Loaded">
-
+        Title="{DynamicResource MainTitleStr}" 
+        Loaded="MetroWindow_Loaded" Height="600" Width="900">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -74,11 +73,8 @@
             <ColumnDefinition Width="0.333*"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition/>
-
-
-            <!--Controls:MetroAnimatedSingleRowTabControl x:Name="TabControl"-->
-
         </Grid.ColumnDefinitions>
+
         <GridSplitter Grid.Column="1"
               HorizontalAlignment="Center"
               VerticalAlignment="Stretch"
