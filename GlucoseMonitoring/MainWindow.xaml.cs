@@ -16,6 +16,7 @@ using MahApps.Metro.Controls;
 using GlucoseMonitoring.Model;
 using MahApps.Metro;
 using GlucoseMonitoring.View;
+using System.Drawing;
 
 namespace GlucoseMonitoring
 {
@@ -29,8 +30,9 @@ namespace GlucoseMonitoring
             InitializeComponent();
         }
 
-        
+        //Graphics.
         //WebCam MWwebcam;
+       // System.Runtime.InteropServices.Marshal.Copy(
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

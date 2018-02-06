@@ -13,7 +13,7 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
         Title="{DynamicResource MainTitleStr}" 
-        Loaded="MetroWindow_Loaded" Height="600" Width="900">
+        Loaded="MetroWindow_Loaded" Width="1340" Height="827">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,13 +26,13 @@
                      Fill="{Binding ColorBrush, Mode=OneWay}"
                      Stroke="{Binding BorderColorBrush, Mode=OneWay}"
                      StrokeThickness="1" />
-            
+
             <Style x:Key="AppThemeMenuItemStyle"
                    BasedOn="{StaticResource MetroMenuItem}"
                    TargetType="{x:Type MenuItem}">
-                    <!--Setter Property="Command" Value="{Binding ChangeAccentCommand}" /-->
-                    <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
-                    <Setter Property="Icon" Value="{StaticResource AppThemeMenuIcon}" />
+                <!--Setter Property="Command" Value="{Binding ChangeAccentCommand}" /-->
+                <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+                <Setter Property="Icon" Value="{StaticResource AppThemeMenuIcon}" />
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -55,7 +55,7 @@
                         </Rectangle.OpacityMask>
 
                     </Rectangle>
-                    <TextBlock Margin="4 0 0 0"
+                    <TextBlock
                    VerticalAlignment="Center"
                    Text="deploy cupcakes" />
                 </StackPanel>
@@ -67,28 +67,21 @@
                       IsChecked="{Binding ElementName=yourMahAppFlyout, Path=IsOpen}" Cursor="Hand" Click="ToggleButton_Click"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    
-    <Grid x:Name="MWgrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.333*"/>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
 
-        <GridSplitter Grid.Column="1"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Stretch"
-              Background="{DynamicResource AccentColorBrush4}" 
-              ShowsPreview="True"
-              Width="5"
-              />
+    <Grid x:Name="MainGrid" Height="800">
 
-        <custom_cntrls:SecondScreenCanvas x:Name="SS_Canvas" Grid.Column="0" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
-        
-        
+        <Grid x:Name="MainGridLeftScreen" Margin="0,0,1005,0">
+            <custom_cntrls:SecondScreenCanvas x:Name="SS_Canvas"/>
+
+        </Grid>
+
+
         <!--Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/-->
         <!--custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
 
-        <custom_cntrls:MainScreenCanvas x:Name="MW_MSC" Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/>
+        <Grid x:Name="MainGridRightScreen" Margin="330,0,0,0">
+            <custom_cntrls:MainScreenCanvas x:Name="MW_MSC"/>
+
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
