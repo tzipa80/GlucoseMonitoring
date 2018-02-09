@@ -1,5 +1,4 @@
-﻿using GlucoseMonitoring.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,19 +16,13 @@ using System.Windows.Shapes;
 namespace GlucoseMonitoring.View
 {
     /// <summary>
-    /// Interaction logic for MainScreenCanvas.xaml
+    /// Interaction logic for MScreenResults.xaml
     /// </summary>
-    public partial class MainScreenCanvas : UserControl
+    public partial class MScreenResults : UserControl
     {
-
-        public WebCam MWwebcam { get; set; }
-
-       
-        public MainScreenCanvas()
+        public MScreenResults()
         {
             InitializeComponent();
-            MWwebcam = new WebCam();
-            MWwebcam.InitializeWebCam(ref MSSelectedArea.imgVideo);
         }
     }
 }

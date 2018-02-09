@@ -5,14 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GlucoseMonitoring.View"
              mc:Ignorable="d">
-    <Grid Name="MSGrid" Background="Transparent" ClipToBounds="True" Width="1330" Height="800">
+    <Grid Name="MSGrid" Background="Transparent" ClipToBounds="True" Width="1000" Height="800">
 
-        <Grid x:Name="MSGridForSelactedArea" Margin="0,0,530,200" Height="600" Background="LightCoral">
-            <local:SelectedArea Width="800"/>
-            <Image Name="imgVideo" Stretch="Fill"/>
-        </Grid>
-        <Grid x:Name="MSGridResult" Margin="805,0,0,200" Background="LightSteelBlue">
+        <Grid x:Name="MSGridSelactedArea" Height="600" Background="LightCoral" Width="800" Margin="0,0,200,200">
             
+            <!--Image Name="imgVideo" Stretch="Fill"/-->
+            <local:SelectedArea x:Name="MSSelectedArea" Width="800"/>
+        </Grid>
+        <Grid x:Name="MSGridResult" Margin="800,0,0,200" Background="LightSteelBlue">
+            <local:MScreenResults x:Name="MSScreenResults"></local:MScreenResults>
+        </Grid>
+
+        <Grid x:Name="MSGridControls" Margin="0,600,0,0" Background="Tan">
             
         </Grid>
     </Grid>

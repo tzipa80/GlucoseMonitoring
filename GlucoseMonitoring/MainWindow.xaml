@@ -72,7 +72,6 @@
 
         <Grid x:Name="MainGridLeftScreen" Margin="0,0,1005,0">
             <custom_cntrls:SecondScreenCanvas x:Name="SS_Canvas"/>
-
         </Grid>
 
 
@@ -80,8 +79,7 @@
         <!--custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
 
         <Grid x:Name="MainGridRightScreen" Margin="330,0,0,0">
-            <custom_cntrls:MainScreenCanvas x:Name="MW_MSC"/>
-
+          <custom_cntrls:MainScreenCanvas x:Name="MW_MSC"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

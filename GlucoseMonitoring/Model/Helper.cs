@@ -57,6 +57,7 @@ namespace GlucoseMonitoring.Model
             }
 
         }
+        //--------TODO Here the plase to add math logic as static methods memebers---------
     }
 }
 

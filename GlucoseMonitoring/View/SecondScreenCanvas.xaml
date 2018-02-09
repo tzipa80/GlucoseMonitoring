@@ -51,5 +51,6 @@
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedSingleRowTabControl>
 
+        <Controls:MetroProgressBar></Controls:MetroProgressBar>
     </Grid>
 </UserControl>

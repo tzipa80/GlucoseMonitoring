@@ -56,7 +56,7 @@ namespace GlucoseMonitoring
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             //MW_MSC.MWwebcam.ResolutionSetting();
-            Helper.SaveImageCapture((BitmapSource)MW_MSC.imgVideo.Source);
+            Helper.SaveImageCapture((BitmapSource)MW_MSC.MSSelectedArea.imgVideo.Source);
         }
 
         private void MW_MSC_Loaded(object sender, RoutedEventArgs e)

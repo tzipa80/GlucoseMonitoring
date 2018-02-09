@@ -27,6 +27,8 @@ namespace GlucoseMonitoring.View
 
         // The part of the rectangle under the mouse.
         HitType MouseHitType = HitType.None;
+        Rectangle WorkingRect = new Rectangle();
+
 
         // True if a drag is in progress.
         private bool DragInProgress = false;
@@ -39,15 +41,16 @@ namespace GlucoseMonitoring.View
         {
             InitializeComponent();
             SetMouseCursor();
+           // rect = new Re
         }
 
         // Return a HitType value to indicate what is at the point.
         private HitType SetHitType(Rectangle rect, Point point)
         {
-            double left = Canvas.GetLeft(SARec);
-            double top = Canvas.GetTop(SARec);
-            double right = left + SARec.Width;
-            double bottom = top + SARec.Height;
+            double left = Canvas.GetLeft(rect);
+            double top = Canvas.GetTop(rect);
+            double right = left + rect.Width;
+            double bottom = top + rect.Height;
             if (point.X < left) return HitType.None;
             if (point.X > right) return HitType.None;
             if (point.Y < top) return HitType.None;
@@ -111,6 +114,14 @@ namespace GlucoseMonitoring.View
         private void SACanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MouseHitType = SetHitType(SARec, Mouse.GetPosition(SACanvas));
+            if (MouseHitType != HitType.None)
+                WorkingRect = SARec;
+            else
+            {
+                MouseHitType = SetHitType(SACer, Mouse.GetPosition(SACanvas));
+                if (MouseHitType != HitType.None)
+                    WorkingRect = SACer;
+            }
             SetMouseCursor();
             if (MouseHitType == HitType.None) return;
 
@@ -131,10 +142,10 @@ namespace GlucoseMonitoring.View
                 double offset_y = point.Y - LastPoint.Y;
 
                 // Get the rectangle's current position.
-                double new_x = Canvas.GetLeft(SARec);
-                double new_y = Canvas.GetTop(SARec);
-                double new_width = SARec.Width;
-                double new_height = SARec.Height;
+                double new_x = Canvas.GetLeft(WorkingRect);
+                double new_y = Canvas.GetTop(WorkingRect);
+                double new_width = WorkingRect.Width;
+                double new_height = WorkingRect.Height;
                 pakaz.Text = string.Format("{0} ; {1}", new_width.ToString("#"), new_height.ToString("#"));
 
                 // Update the rectangle.
@@ -184,10 +195,10 @@ namespace GlucoseMonitoring.View
                 if ((new_width > 0) && (new_height > 0))
                 {
                     // Update the rectangle.
-                    Canvas.SetLeft(SARec, new_x);
-                    Canvas.SetTop(SARec, new_y);
-                    SARec.Width = new_width;
-                    SARec.Height = new_height;
+                    Canvas.SetLeft(WorkingRect, new_x);
+                    Canvas.SetTop(WorkingRect, new_y);
+                    WorkingRect.Width = new_width;
+                    WorkingRect.Height = new_height;
 
                     // Save the mouse's new location.
                     LastPoint = point;
@@ -195,8 +206,7 @@ namespace GlucoseMonitoring.View
             }
            else
             {
-                MouseHitType = SetHitType(SARec,
-                    Mouse.GetPosition(SACanvas));
+                MouseHitType = SetHitType(WorkingRect, Mouse.GetPosition(SACanvas));
                 SetMouseCursor();
             }
 
