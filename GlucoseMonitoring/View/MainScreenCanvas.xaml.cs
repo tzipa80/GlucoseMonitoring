@@ -39,6 +39,8 @@ namespace GlucoseMonitoring.View
         private Image _FrameImageCropBottom;
         private Image _FrameImageCropDiff;
 
+        private TextBlock _pakaz;
+
         public MainScreenCanvas()
         {
             InitializeComponent();
@@ -49,6 +51,7 @@ namespace GlucoseMonitoring.View
             _FrameImageCropTop = MSScreenResults.imgVideoResTop;
             _FrameImageCropBottom = MSScreenResults.imgVideoBottom;
             _FrameImageCropDiff = MSScreenResults.imgVideoDiff;
+            _pakaz = MSSelectedArea.pakaz;//MSScreenResults.pakaz;
         }
 
         private CroppedBitmap _DoCropCP(BitmapSource bitmap, Int32Rect rec)
@@ -66,6 +69,7 @@ namespace GlucoseMonitoring.View
             int x = (int)Canvas.GetLeft(aa);
             int y = (int)Canvas.GetTop(aa);
             Int32Rect RecTop = new Int32Rect(x, y, (int)aa.Width, (int)aa.Height);
+
             x = (int)Canvas.GetLeft(bb);
             y = (int)Canvas.GetTop(bb);
             Int32Rect RecBottom = new Int32Rect(x, y, (int)aa.Width, (int)aa.Height);
@@ -89,40 +93,39 @@ namespace GlucoseMonitoring.View
         {
             //BitmapFrame destination = BitmapFrame.Create((BitmapSource)_FrameImageCropDiff.Source);//new BitmapImage();
 
-            int[] pixelDataDiff = null;
-            int[] pixelDataTop = null;
-            int[] pixelDataBottom = null;
+           // int[] pixelDataDiff = null;
+            byte[] pixelDataTop = null;
+            byte[] pixelDataBottom = null;
 
-            int? widthInByteDiff = null;
-            int? widthInByteTop = null;
-            int? widthInByteBottom = null;
+           // int? widthInByteDiff = new int();
+            int? widthInByteTop = new int();
+            int? widthInByteBottom = new int();
 
             
             WriteableBitmap WBTopImage = _CreateWB(ImageTypeE.Top, ref pixelDataTop, ref widthInByteTop);
             WriteableBitmap WBBottomImage = _CreateWB(ImageTypeE.Bottom, ref pixelDataBottom, ref widthInByteBottom);
-            WriteableBitmap WBDiffImage = _CreateWB(ImageTypeE.Diff, ref pixelDataDiff, ref widthInByteDiff);
+            // WriteableBitmap WBDiffImage = _CreateWB(ImageTypeE.Diff, ref pixelDataDiff, ref widthInByteDiff);
 
+            _pakaz.Text = string.Format("{0} ; {1}", WBTopImage.Format.BitsPerPixel, pixelDataTop.Length);
 
-            for (int i = 0; i < pixelDataDiff.Length; i++)
+            for (int i = 0; i < pixelDataTop.Length; i++)
             {
-                pixelDataDiff[i] ^= 0x00ffffff;
+                pixelDataTop[i] -= pixelDataBottom[i];
             }
 
-            WBDiffImage.WritePixels(new Int32Rect(0, 0, (int)WBDiffImage.Width, (int)WBDiffImage.Height), (int[])pixelDataDiff, (int)widthInByteDiff, 0);
+            WBTopImage.WritePixels(new Int32Rect(0, 0, (int)WBTopImage.Width, (int)WBTopImage.Height), pixelDataTop, (int)widthInByteTop, 0);
 
-            _FrameImageCropDiff.Source = WBDiffImage;
-
-
-     
+            _FrameImageCropDiff.Source = WBTopImage;
+  
         }
 
-        private WriteableBitmap _CreateWB(ImageTypeE type, ref int[] pixelData, ref int? widthInByte)
+        private WriteableBitmap _CreateWB(ImageTypeE type, ref byte[] pixelData, ref int? widthInByte)
         {
             WriteableBitmap mImage = null;
             switch (type)
             {
                 case ImageTypeE.Diff:
-                    mImage = new WriteableBitmap((BitmapSource)_FrameImageCropDiff.Source);
+                    //mImage = new WriteableBitmap((BitmapSource)_FrameImageCropTop.Source); //Here we take top image
                     break;
                 case ImageTypeE.Top:
                     mImage = new WriteableBitmap((BitmapSource)_FrameImageCropTop.Source);
@@ -135,8 +138,8 @@ namespace GlucoseMonitoring.View
 
             int h = mImage.PixelHeight;
             int w = mImage.PixelWidth;
-            pixelData = new int[w * h];
-            int widthInByteInternal = 4 * w;
+            pixelData = new byte[w * h];
+            int widthInByteInternal = w;
 
             mImage.CopyPixels(pixelData, widthInByteInternal, 0);
 

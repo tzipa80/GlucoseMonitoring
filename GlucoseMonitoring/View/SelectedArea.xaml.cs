@@ -146,7 +146,7 @@ namespace GlucoseMonitoring.View
                 double new_y = Canvas.GetTop(WorkingRect);
                 double new_width = WorkingRect.Width;
                 double new_height = WorkingRect.Height;
-                pakaz.Text = string.Format("{0} ; {1}", new_width.ToString("#"), new_height.ToString("#"));
+               // pakaz.Text = string.Format("{0} ; {1}", new_width.ToString("#"), new_height.ToString("#"));
 
                 // Update the rectangle.
                 switch (MouseHitType)

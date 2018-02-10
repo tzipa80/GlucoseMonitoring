@@ -56,7 +56,7 @@ namespace GlucoseMonitoring.Model
             // Key of changing the bitmap format is DesitnationFormat property of BitmapSource.  
             // It is a type of PixelFormat. FixelFormat has dozens of options to set   
             // bitmap formatting.   
-            grayBitmapSource.DestinationFormat = System.Windows.Media.PixelFormats.Gray32Float;
+            grayBitmapSource.DestinationFormat = System.Windows.Media.PixelFormats.Gray8;
             grayBitmapSource.EndInit();
 
 
