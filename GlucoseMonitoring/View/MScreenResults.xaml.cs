@@ -18,9 +18,9 @@ namespace GlucoseMonitoring.View
     /// <summary>
     /// Interaction logic for MScreenResults.xaml
     /// </summary>
-    public partial class MScreenResults : UserControl
+    public partial class MSScreenResults : UserControl
     {
-        public MScreenResults()
+        public MSScreenResults()
         {
             InitializeComponent();
         }

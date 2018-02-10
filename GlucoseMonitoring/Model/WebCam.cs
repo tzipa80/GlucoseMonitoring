@@ -18,6 +18,9 @@ namespace GlucoseMonitoring.Model
         private WebCamCapture webcam;
         private Image _FrameImage;               //System.Windows.Controls.
         private int FrameNumber = 30;
+
+        public event EventHandler<WebcamEventArgs> ToCrap;
+
         public void InitializeWebCam(ref Image ImageControl)     //System.Windows.Controls.
         {
             webcam = new WebCamCapture();
@@ -32,7 +35,11 @@ namespace GlucoseMonitoring.Model
 
         void webcam_ImageCaptured(object source, WebcamEventArgs e)
         {
+            
+            //_FrameImage.Source = Helper.DoGrayImage((System.Drawing.Bitmap)e.WebCamImage);
             _FrameImage.Source = Helper.LoadBitmap((System.Drawing.Bitmap)e.WebCamImage);
+            //System.Threading.ThreadPool.QueueUserWorkItem((st) => ToCrap(this, e));
+            ToCrap(this, e);
         }
 
         public void Start()

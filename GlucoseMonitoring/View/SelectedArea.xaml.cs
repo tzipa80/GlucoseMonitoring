@@ -27,7 +27,7 @@ namespace GlucoseMonitoring.View
 
         // The part of the rectangle under the mouse.
         HitType MouseHitType = HitType.None;
-        Rectangle WorkingRect = new Rectangle();
+        public Rectangle WorkingRect = new Rectangle();
 
 
         // True if a drag is in progress.

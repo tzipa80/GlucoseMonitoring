@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
-
+using System.Windows.Controls;
+using WebCam_Capture;
 
 namespace GlucoseMonitoring.Model
 {
@@ -28,6 +29,38 @@ namespace GlucoseMonitoring.Model
             DeleteObject(ip);
 
             return bs;
+
+        }
+        public static BitmapSource DoGrayImage(System.Drawing.Bitmap source)
+        {
+
+            ip = source.GetHbitmap();
+
+            bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(ip, IntPtr.Zero, System.Windows.Int32Rect.Empty,
+
+                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+
+            DeleteObject(ip);
+
+            // Create a FormatConvertedBitmap  
+            FormatConvertedBitmap grayBitmapSource = new FormatConvertedBitmap();
+
+            // BitmapSource objects like FormatConvertedBitmap can only have their properties  
+            // changed within a BeginInit/EndInit block.  
+            grayBitmapSource.BeginInit();
+
+            // Use the BitmapSource object defined above as the source for this new   
+            // BitmapSource (chain the BitmapSource objects together).  
+            grayBitmapSource.Source = bs;
+
+            // Key of changing the bitmap format is DesitnationFormat property of BitmapSource.  
+            // It is a type of PixelFormat. FixelFormat has dozens of options to set   
+            // bitmap formatting.   
+            grayBitmapSource.DestinationFormat = System.Windows.Media.PixelFormats.Gray32Float;
+            grayBitmapSource.EndInit();
+
+
+            return grayBitmapSource;
 
         }
         public static void SaveImageCapture(BitmapSource bitmap)
@@ -58,6 +91,39 @@ namespace GlucoseMonitoring.Model
 
         }
         //--------TODO Here the plase to add math logic as static methods memebers---------
+        public static BitmapSource CropFrame(System.Drawing.Bitmap source)
+        {
+            //BitmapFrame bf = BitmapFrame.Create(bitmap);
+
+
+            System.Windows.Int32Rect xxx;
+            
+            
+            
+            // Create an Image   
+            Image croppedImage = new Image();
+            //croppedImage.Width = 200;
+            croppedImage.Margin = new System.Windows.Thickness(2);
+
+
+
+            ip = source.GetHbitmap();
+
+            bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(ip, IntPtr.Zero, System.Windows.Int32Rect.Empty,
+
+                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+
+            DeleteObject(ip);
+            // Create a CroppedBitmap from BitmapImage  
+            CroppedBitmap cb = new CroppedBitmap(bs,
+                new System.Windows.Int32Rect(20, 20, 100, 100));
+            
+            // Set Image.Source to cropped image  
+            croppedImage.Source = cb; //magic
+            return (BitmapSource)croppedImage.Source; //magic 2
+
+        }
+
     }
 }
 

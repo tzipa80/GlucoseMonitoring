@@ -13,7 +13,7 @@
             <local:SelectedArea x:Name="MSSelectedArea" Width="800"/>
         </Grid>
         <Grid x:Name="MSGridResult" Margin="800,0,0,200" Background="LightSteelBlue">
-            <local:MScreenResults x:Name="MSScreenResults"></local:MScreenResults>
+            <local:MSScreenResults x:Name="MSScreenResults"></local:MSScreenResults>
         </Grid>
 
         <Grid x:Name="MSGridControls" Margin="0,600,0,0" Background="Tan">
