@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WebCam_Capture;
-
+//using System.Drawing;
 
 namespace GlucoseMonitoring.View
 {
@@ -23,7 +23,10 @@ namespace GlucoseMonitoring.View
     /// </summary>
     public partial class MainScreenCanvas : UserControl
     {
-
+        private enum ImageTypeE
+        {
+            Top, Bottom, Diff
+        };
         public WebCam MWwebcam { get; set; }
 
         //Block Memory Leak
@@ -58,8 +61,8 @@ namespace GlucoseMonitoring.View
         }
         private void MWwebcam_ToCrap(object sender, WebcamEventArgs e)
         {
-            Rectangle aa = MSSelectedArea.SARec;
-            Rectangle bb = MSSelectedArea.SACer;
+            System.Windows.Shapes.Rectangle aa = MSSelectedArea.SARec;
+            System.Windows.Shapes.Rectangle bb = MSSelectedArea.SACer;
             int x = (int)Canvas.GetLeft(aa);
             int y = (int)Canvas.GetTop(aa);
             Int32Rect RecTop = new Int32Rect(x, y, (int)aa.Width, (int)aa.Height);
@@ -69,20 +72,6 @@ namespace GlucoseMonitoring.View
 
             _FrameImageCropTop.Source = Helper.DoGrayImage((System.Drawing.Bitmap)e.WebCamImage);
             _FrameImageCropBottom.Source = Helper.DoGrayImage((System.Drawing.Bitmap)e.WebCamImage);
-
-            // Create an Image TOP  
-            //Image croppedImageTop = new Image();
-            //croppedImage.Width = 200;
-            //croppedImageTop.Margin = new Thickness(2);
-
-            // Create an Image Bottom  
-            // Image croppedImageBottom = new Image();
-            //croppedImage.Width = 200;
-            //croppedImageBottom.Margin = new Thickness(2);
-
-            // Create a CroppedBitmap from BitmapImage
-            //CroppedBitmap cb = new CroppedBitmap((BitmapSource)_FrameImageCrop.Source,
-            //                                      RecTop);
 
             // Set Image.Source to cropped image
             _FrameImageCropTop.Source = _DoCropCP((BitmapSource)_FrameImageCropTop.Source,
@@ -98,11 +87,61 @@ namespace GlucoseMonitoring.View
 
         private void _UpdateDiffImage()
         {
-            // Create an Image TOP  
-            //Image croppedImageDiff = new Image();
-            //croppedImage.Width = 200;
-            //croppedImageDiff.Margin = new Thickness(2);
+            //BitmapFrame destination = BitmapFrame.Create((BitmapSource)_FrameImageCropDiff.Source);//new BitmapImage();
 
+            int[] pixelDataDiff = null;
+            int[] pixelDataTop = null;
+            int[] pixelDataBottom = null;
+
+            int? widthInByteDiff = null;
+            int? widthInByteTop = null;
+            int? widthInByteBottom = null;
+
+            
+            WriteableBitmap WBTopImage = _CreateWB(ImageTypeE.Top, ref pixelDataTop, ref widthInByteTop);
+            WriteableBitmap WBBottomImage = _CreateWB(ImageTypeE.Bottom, ref pixelDataBottom, ref widthInByteBottom);
+            WriteableBitmap WBDiffImage = _CreateWB(ImageTypeE.Diff, ref pixelDataDiff, ref widthInByteDiff);
+
+
+            for (int i = 0; i < pixelDataDiff.Length; i++)
+            {
+                pixelDataDiff[i] ^= 0x00ffffff;
+            }
+
+            WBDiffImage.WritePixels(new Int32Rect(0, 0, (int)WBDiffImage.Width, (int)WBDiffImage.Height), (int[])pixelDataDiff, (int)widthInByteDiff, 0);
+
+            _FrameImageCropDiff.Source = WBDiffImage;
+
+
+     
+        }
+
+        private WriteableBitmap _CreateWB(ImageTypeE type, ref int[] pixelData, ref int? widthInByte)
+        {
+            WriteableBitmap mImage = null;
+            switch (type)
+            {
+                case ImageTypeE.Diff:
+                    mImage = new WriteableBitmap((BitmapSource)_FrameImageCropDiff.Source);
+                    break;
+                case ImageTypeE.Top:
+                    mImage = new WriteableBitmap((BitmapSource)_FrameImageCropTop.Source);
+                    break;
+                case ImageTypeE.Bottom:
+                    mImage = new WriteableBitmap((BitmapSource)_FrameImageCropBottom.Source);
+                    break;
+            }
+           // WriteableBitmap mImage = new WriteableBitmap(source);
+
+            int h = mImage.PixelHeight;
+            int w = mImage.PixelWidth;
+            pixelData = new int[w * h];
+            int widthInByteInternal = 4 * w;
+
+            mImage.CopyPixels(pixelData, widthInByteInternal, 0);
+
+            widthInByte = widthInByteInternal;
+            return mImage;
         }
     }
 }

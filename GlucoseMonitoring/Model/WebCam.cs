@@ -35,11 +35,12 @@ namespace GlucoseMonitoring.Model
 
         void webcam_ImageCaptured(object source, WebcamEventArgs e)
         {
-            
+            //webcam.Stop();
             //_FrameImage.Source = Helper.DoGrayImage((System.Drawing.Bitmap)e.WebCamImage);
             _FrameImage.Source = Helper.LoadBitmap((System.Drawing.Bitmap)e.WebCamImage);
             //System.Threading.ThreadPool.QueueUserWorkItem((st) => ToCrap(this, e));
             ToCrap(this, e);
+            //webcam.Start(this.webcam.FrameNumber);
         }
 
         public void Start()
