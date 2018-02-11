@@ -17,7 +17,8 @@
         </Grid>
 
         <Grid x:Name="MSGridControls" Margin="0,600,0,0" Background="Tan">
-            
+            <local:MScreenControls x:Name="MSScreenControls"></local:MScreenControls>
+
         </Grid>
     </Grid>
 </UserControl>

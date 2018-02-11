@@ -17,7 +17,7 @@ namespace GlucoseMonitoring.Model
         //Predicate<Image> 
         private WebCamCapture webcam;
         private Image _FrameImage;               //System.Windows.Controls.
-        private int FrameNumber = 500;
+        private int FrameNumber = 30;
 
         public event EventHandler<WebcamEventArgs> ToCrap;
 

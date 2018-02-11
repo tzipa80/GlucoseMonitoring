@@ -129,6 +129,7 @@ namespace GlucoseMonitoring.View
             double average = floatPixelData.Average();
             double sumOfSquaresOfDifferences = floatPixelData.Select(val => (val - average) * (val - average)).Sum();
             double sd = Math.Sqrt(sumOfSquaresOfDifferences / floatPixelData.Length);
+            sd *= 10;
             _result.Text = sd.ToString("#");
         }
 
