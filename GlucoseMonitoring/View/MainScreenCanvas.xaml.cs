@@ -40,6 +40,7 @@ namespace GlucoseMonitoring.View
         private Image _FrameImageCropDiff;
 
         private TextBlock _pakaz;
+        private TextBox _result;
 
         public MainScreenCanvas()
         {
@@ -52,6 +53,7 @@ namespace GlucoseMonitoring.View
             _FrameImageCropBottom = MSScreenResults.imgVideoBottom;
             _FrameImageCropDiff = MSScreenResults.imgVideoDiff;
             _pakaz = MSSelectedArea.pakaz;//MSScreenResults.pakaz;
+            _result = MSScreenResults.Result;
         }
 
         private CroppedBitmap _DoCropCP(BitmapSource bitmap, Int32Rect rec)
@@ -96,6 +98,7 @@ namespace GlucoseMonitoring.View
            // int[] pixelDataDiff = null;
             byte[] pixelDataTop = null;
             byte[] pixelDataBottom = null;
+            double[] FloatPixelData = null;
 
            // int? widthInByteDiff = new int();
             int? widthInByteTop = new int();
@@ -107,16 +110,26 @@ namespace GlucoseMonitoring.View
             // WriteableBitmap WBDiffImage = _CreateWB(ImageTypeE.Diff, ref pixelDataDiff, ref widthInByteDiff);
 
             _pakaz.Text = string.Format("{0} ; {1}", WBTopImage.Format.BitsPerPixel, pixelDataTop.Length);
-
+            FloatPixelData = new double[pixelDataTop.Length];
             for (int i = 0; i < pixelDataTop.Length; i++)
             {
                 pixelDataTop[i] -= pixelDataBottom[i];
+                FloatPixelData[i] = pixelDataTop[i];
             }
 
             WBTopImage.WritePixels(new Int32Rect(0, 0, (int)WBTopImage.Width, (int)WBTopImage.Height), pixelDataTop, (int)widthInByteTop, 0);
 
             _FrameImageCropDiff.Source = WBTopImage;
-  
+
+            _calculateSTD(FloatPixelData);
+        }
+
+        private void _calculateSTD(double[] floatPixelData)
+        {
+            double average = floatPixelData.Average();
+            double sumOfSquaresOfDifferences = floatPixelData.Select(val => (val - average) * (val - average)).Sum();
+            double sd = Math.Sqrt(sumOfSquaresOfDifferences / floatPixelData.Length);
+            _result.Text = sd.ToString("#");
         }
 
         private WriteableBitmap _CreateWB(ImageTypeE type, ref byte[] pixelData, ref int? widthInByte)

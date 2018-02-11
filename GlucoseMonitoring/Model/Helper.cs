@@ -90,39 +90,7 @@ namespace GlucoseMonitoring.Model
             }
 
         }
-        //--------TODO Here the plase to add math logic as static methods memebers---------
-        public static BitmapSource CropFrame(System.Drawing.Bitmap source)
-        {
-            //BitmapFrame bf = BitmapFrame.Create(bitmap);
-
-
-            System.Windows.Int32Rect xxx;
-            
-            
-            
-            // Create an Image   
-            Image croppedImage = new Image();
-            //croppedImage.Width = 200;
-            croppedImage.Margin = new System.Windows.Thickness(2);
-
-
-
-            ip = source.GetHbitmap();
-
-            bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(ip, IntPtr.Zero, System.Windows.Int32Rect.Empty,
-
-                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-
-            DeleteObject(ip);
-            // Create a CroppedBitmap from BitmapImage  
-            CroppedBitmap cb = new CroppedBitmap(bs,
-                new System.Windows.Int32Rect(20, 20, 100, 100));
-            
-            // Set Image.Source to cropped image  
-            croppedImage.Source = cb; //magic
-            return (BitmapSource)croppedImage.Source; //magic 2
-
-        }
+        
 
     }
 }
