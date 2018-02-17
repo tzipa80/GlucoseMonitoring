@@ -10,6 +10,7 @@
     <Grid>
         <Grid x:Name="GridControls" Unloaded="GridControls_Unloaded" Margin="0,0,440,0">
             <!--Image x:Name="PlotterImage"></-->
+            <WindowsFormsHost x:Name="host1" Height="200"/>
         </Grid>
     </Grid>
 </UserControl>

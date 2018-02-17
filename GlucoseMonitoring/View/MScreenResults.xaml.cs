@@ -20,7 +20,7 @@ namespace GlucoseMonitoring.View
     /// </summary>
     public partial class MSScreenResults : UserControl
     {
-        internal readonly string pakaz;
+        //internal readonly string pakaz;
 
         public MSScreenResults()
         {

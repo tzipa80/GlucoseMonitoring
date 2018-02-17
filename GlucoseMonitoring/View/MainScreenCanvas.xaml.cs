@@ -42,6 +42,8 @@ namespace GlucoseMonitoring.View
         private TextBlock _pakaz;
         private TextBox _result;
 
+        public string ResultStr { get { return _result.Text;  } }
+
         public MainScreenCanvas()
         {
             InitializeComponent();
@@ -87,7 +89,11 @@ namespace GlucoseMonitoring.View
             if ((bool)MSScreenResults.Calculate.IsChecked)
             {
                 _UpdateDiffImage();
-                
+                MSScreenControls.mTimer.Start();
+            }
+            else
+            {
+                MSScreenControls.mTimer.Stop();
             }
         }
 
@@ -129,8 +135,9 @@ namespace GlucoseMonitoring.View
             double average = floatPixelData.Average();
             double sumOfSquaresOfDifferences = floatPixelData.Select(val => (val - average) * (val - average)).Sum();
             double sd = Math.Sqrt(sumOfSquaresOfDifferences / floatPixelData.Length);
-            sd *= 10;
+            //sd *= 10;
             _result.Text = sd.ToString("#");
+            MSScreenControls.Result = _result.Text;
         }
 
         private WriteableBitmap _CreateWB(ImageTypeE type, ref byte[] pixelData, ref int? widthInByte)
