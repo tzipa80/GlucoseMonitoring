@@ -105,8 +105,10 @@ namespace GlucoseMonitoring.View
             byte[] pixelDataTop = null;
             byte[] pixelDataBottom = null;
             double[] FloatPixelData = null;
+            double SumTop = 0.0;
+            double Bottom = 0.0;
 
-           // int? widthInByteDiff = new int();
+            // int? widthInByteDiff = new int();
             int? widthInByteTop = new int();
             int? widthInByteBottom = new int();
 
@@ -117,9 +119,22 @@ namespace GlucoseMonitoring.View
 
             _pakaz.Text = string.Format("{0} ; {1}", WBTopImage.Format.BitsPerPixel, pixelDataTop.Length);
             FloatPixelData = new double[pixelDataTop.Length];
+            //FloatPixelDataSumTop = new double[pixelDataTop.Length];
+            //FloatPixelDataSumBottom = new double[pixelDataTop.Length];
             for (int i = 0; i < pixelDataTop.Length; i++)
             {
-                pixelDataTop[i] -= pixelDataBottom[i];
+                //pixelDataTop[i] -= pixelDataBottom[i];
+
+                SumTop += pixelDataTop[i];
+                Bottom += pixelDataBottom[i];
+
+                //byte tmpMax = Math.Max(pixelDataTop[i], pixelDataBottom[i]);
+                //byte tmpMin = Math.Min(pixelDataTop[i], pixelDataBottom[i]);
+                pixelDataTop[i] = (byte)(Math.Max(pixelDataTop[i], pixelDataBottom[i]) - Math.Min(pixelDataTop[i], pixelDataBottom[i]));
+                
+                //pixelDataTop[i] -= pixelDataBottom[i];
+
+
                 FloatPixelData[i] = pixelDataTop[i];
             }
 
@@ -127,7 +142,16 @@ namespace GlucoseMonitoring.View
 
             _FrameImageCropDiff.Source = WBTopImage;
 
-            _calculateSTD(FloatPixelData);
+            if ((bool)MSScreenControls.TypeCalculation.IsChecked)
+            {
+                MSScreenControls.Result = (Math.Max(SumTop, Bottom) - Math.Min(SumTop, Bottom)).ToString();
+            }
+            else
+            {
+                _calculateSTD(FloatPixelData);
+            }
+            //MSScreenControls.Result = (Math.Max(SumTop, Bottom) - Math.Min(SumTop, Bottom)).ToString();
+            //_calculateSTD(FloatPixelData);
         }
 
         private void _calculateSTD(double[] floatPixelData)
@@ -135,7 +159,7 @@ namespace GlucoseMonitoring.View
             double average = floatPixelData.Average();
             double sumOfSquaresOfDifferences = floatPixelData.Select(val => (val - average) * (val - average)).Sum();
             double sd = Math.Sqrt(sumOfSquaresOfDifferences / floatPixelData.Length);
-            //sd *= 10;
+            sd *= double.Parse(MSScreenControls.FactorText.Text);
             _result.Text = sd.ToString("#");
             MSScreenControls.Result = _result.Text;
         }

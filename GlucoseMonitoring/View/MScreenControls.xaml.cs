@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 
-
 namespace GlucoseMonitoring.View
 {
     /// <summary>
@@ -13,14 +12,11 @@ namespace GlucoseMonitoring.View
     /// </summary>
     public partial class MScreenControls : UserControl
     {
-        //private Image _PlotterImage;
-        //private delegate 
         GraphLib.PlotterDisplayEx display = null;
         public PrecisionTimer.Timer mTimer = null;
         private DateTime lastTimerTick = DateTime.Now;
         // BackgroundWorker _backgroundWorker = new BackgroundWorker();
 
-        //private TextBox _resultControls;
         private string _resultStr = String.Empty;
         public string Result { set { _resultStr = value; } }
 
@@ -30,20 +26,15 @@ namespace GlucoseMonitoring.View
         {
             InitializeComponent();
 
-
-            //_resultControls = GlucoseMonitoring.View.MSScreenResults.MSScreenResults.Result;
             // Set up the Background Worker Events
             //_backgroundWorker.DoWork += _backgroundWorker_DoWork;
             //_backgroundWorker.RunWorkerCompleted +=
             //    _backgroundWorker_RunWorkerCompleted;
 
-            //_PlotterImage = PlotterImage;
-            //SuspendLayout();
             CreatePlotterGraph();
-
-            //display.Refresh();
-
+            // Run the Background Worker
             //_backgroundWorker.RunWorkerAsync(5000);
+            
             //----------------------------------------------
             WindowsFormsHost host1 = new WindowsFormsHost();
             host1.Child = display;
@@ -52,19 +43,13 @@ namespace GlucoseMonitoring.View
                     //Grid.SetRow(host1, 0);
                     //Grid.SetColumn(host1, 0);
             GridControls.Children.Add(host1);
-
-
-            // Run the Background Worker
-            
-
-
-            // host1.LayoutUpdated += Host1_LayoutUpdated;
+            //------------------------------------------------
 
             mTimer = new PrecisionTimer.Timer();
             mTimer.Period = 50;                         // 20 fps
             mTimer.Tick += new EventHandler(OnTimerTick);
             lastTimerTick = DateTime.Now;
-            //mTimer.Start();
+            //mTimer.Start(); //Removed to MSScreenResults.Calculate toggle button
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -95,7 +80,7 @@ namespace GlucoseMonitoring.View
             using (display = new GraphLib.PlotterDisplayEx())
             {
                 display = new GraphLib.PlotterDisplayEx();
-                display.Smoothing = System.Drawing.Drawing2D.SmoothingMode.None; //System.Drawing.Drawing2D.SmoothingMode.HighQuality; System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+                display.Smoothing = System.Drawing.Drawing2D.SmoothingMode.HighQuality; //System.Drawing.Drawing2D.SmoothingMode.HighQuality; System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                 // 
                 // display
                 // 
@@ -113,8 +98,6 @@ namespace GlucoseMonitoring.View
                 display.SolidGridColor = System.Drawing.Color.Blue;
                 display.TabIndex = 1;
 
-                //display.Refresh();
-
                 display.DataSources.Clear();
                 display.SetDisplayRangeX(0, 600);
 
@@ -126,10 +109,8 @@ namespace GlucoseMonitoring.View
                 display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
                 display.DataSources[0].AutoScaleY = true;
                 display.DataSources[0].AutoScaleX = true;
-                display.DataSources[0].SetDisplayRangeY(-200, 200);
-                display.DataSources[0].SetGridDistanceY(100);
-                display.DataSources[0].OnRenderYAxisLabel = RenderYLabel;
-
+                display.DataSources[0].SetDisplayRangeY(0, 300);
+                display.DataSources[0].SetGridDistanceY(50);
 
                 //display.DataSources[0].XAutoScaleOffset = 50;
 
@@ -147,10 +128,7 @@ namespace GlucoseMonitoring.View
                 for (int i = 0; i < src.Length; i++)
                 {
                     src[i].x = i;
-                    src[i].y = 0; // (float)(((float)200 * Math.Sin((3 + 1) * (i + 1.0) * 48 / src.Length)));
-                    /**
-                                (float)( 4* Math.Sin( ((time + (i+8) * 100) / 900.0)))+
-                                (float)(28 * Math.Sin(((time + (i + 8) * 100) / 290.0))); */
+                    src[i].y = 0; 
                 }
             }
         }
@@ -183,55 +161,24 @@ namespace GlucoseMonitoring.View
         {
             try
             {
-                //TimeSpan dt = DateTime.Now - lastTimerTick;
-
-                //display.DataSources[0].Length = iter;
-
-
-
-
                 if (iter < display.DataSources[0].Length)
                 {
                     cPoint[] src = display.DataSources[0].Samples;
 
                     src[iter].x = iter;
                     src[iter].y = float.Parse(_resultStr);
+                    iter++; //For initial fillup
                 }
                 else
                 {
-                    //src[400].y = float.Parse(_resultStr);
                     ShiftLeft(display.DataSources[0]);
                     cPoint[] src = display.DataSources[0].Samples;
 
                     src[display.DataSources[0].Length-1].x = display.DataSources[0].Length-1;
                     src[display.DataSources[0].Length-1].y = float.Parse(_resultStr);
-
                 }
-
-
-                iter++;
-                // for (int i = 0; i < iter; i++)
-                //  {
-                //     src[i].x = i;
-                //     src[i].y = float.Parse(_resultStr);// (float)(((float)200 * Math.Sin((3 + 1) * (i + 1.0) * 48 / src.Length))); 
-                /**
-                            (float)( 4* Math.Sin( ((time + (i+8) * 100) / 900.0)))+
-                            (float)(28 * Math.Sin(((time + (i + 8) * 100) / 290.0))); */
-                // }
-                /*for (int j = 0; j < NumGraphs; j++)
-                {
-
-                    //CalcSinusFunction_3(display.DataSources[j], j, (float)dt.TotalMilliseconds);
-
-                }*/
-                // RefreshGraph();
-                //TimerEventHandeler.Invoke(new MethodInvoker(RefreshGraph));
-                //System.Threading.ThreadPool.QueueUserWorkItem((st) => RefreshGraph());
-                //Thread curr = new Thread(RefreshGraph); /* In a class, myfunction is a void taking an object */
-                //curr.Start(new object()); /* Or something else to be downcast */
+            
                 Dispatcher.Invoke(RefreshGraph);
-
-
             }
             catch (ObjectDisposedException ex)
             {
@@ -248,14 +195,8 @@ namespace GlucoseMonitoring.View
             for (int i = 1;i < display.DataSources[0].Length; i++ )
             {
                 cPoint[] src = display.DataSources[0].Samples;
-                //cPoint[] tmp = new cPoint[display.DataSources[0].Length];
-                //display.DataSources[0].Cle
                 src[i - 1].x = i-1;
                 src[i - 1].y = src[i].y;
-                //display.DataSources.Clear();
-                //CreatePlotterGraph();
-                //display.DataSources[0].Samples = src;
-
             }
         }
 
@@ -268,6 +209,24 @@ namespace GlucoseMonitoring.View
         {
             mTimer.Stop();
             mTimer.Dispose();
+            display.Dispose();
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CreatePlotterGraph();
+            // Run the Background Worker
+            //_backgroundWorker.RunWorkerAsync(5000);
+
+            //----------------------------------------------
+            WindowsFormsHost host1 = new WindowsFormsHost();
+            host1.Child = display;
+            // host1.Width = 560;
+            // host1.Height = 200;
+            //Grid.SetRow(host1, 0);
+            //Grid.SetColumn(host1, 0);
+            GridControls.Children.Add(host1);
+            //------------------------------------------------
         }
     }
 }

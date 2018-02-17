@@ -12,5 +12,20 @@
             <!--Image x:Name="PlotterImage"></-->
             <WindowsFormsHost x:Name="host1" Height="200"/>
         </Grid>
+        <StackPanel x:Name="StackPanelControlsFormula" Margin="560,0,0,0">
+            <Grid>
+                <Label FontSize="20" FontFamily="Stencil" Margin="0,0,350,0">Factor:</Label>
+                <TextBox x:Name="FactorText" FontSize="20"  FontFamily="Stencil" Margin="90,0,280,0">5</TextBox>
+            </Grid>
+            <Grid>
+                <ToggleButton x:Name="TypeCalculation"   >
+                    STD/SUM
+                </ToggleButton>
+            </Grid>
+            <Grid>
+                <Button Style="{DynamicResource SquareButtonStyle}" Click="Button_Click" >Clear Plotter</Button>
+                
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>
