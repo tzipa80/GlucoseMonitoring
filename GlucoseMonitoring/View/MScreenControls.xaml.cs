@@ -14,7 +14,7 @@ namespace GlucoseMonitoring.View
     {
         GraphLib.PlotterDisplayEx display = null;
         public PrecisionTimer.Timer mTimer = null;
-        private DateTime lastTimerTick = DateTime.Now;
+        //private DateTime lastTimerTick = DateTime.Now;
         // BackgroundWorker _backgroundWorker = new BackgroundWorker();
 
         private string _resultStr = String.Empty;
@@ -38,17 +38,13 @@ namespace GlucoseMonitoring.View
             //----------------------------------------------
             WindowsFormsHost host1 = new WindowsFormsHost();
             host1.Child = display;
-           // host1.Width = 560;
-           // host1.Height = 200;
-                    //Grid.SetRow(host1, 0);
-                    //Grid.SetColumn(host1, 0);
             GridControls.Children.Add(host1);
             //------------------------------------------------
 
             mTimer = new PrecisionTimer.Timer();
             mTimer.Period = 50;                         // 20 fps
             mTimer.Tick += new EventHandler(OnTimerTick);
-            lastTimerTick = DateTime.Now;
+            //lastTimerTick = DateTime.Now;
             //mTimer.Start(); //Removed to MSScreenResults.Calculate toggle button
         }
 
@@ -102,7 +98,7 @@ namespace GlucoseMonitoring.View
                 display.SetDisplayRangeX(0, 600);
 
                 display.DataSources.Add(new DataSource());
-                display.DataSources[0].Name = "Glucose Monitoring";
+                //display.DataSources[0].Name = "Glucose Monitoring";
                 display.DataSources[0].OnRenderXAxisLabel += RenderXLabel;
 
                 display.DataSources[0].Length = 600;
@@ -215,16 +211,10 @@ namespace GlucoseMonitoring.View
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             CreatePlotterGraph();
-            // Run the Background Worker
-            //_backgroundWorker.RunWorkerAsync(5000);
 
             //----------------------------------------------
             WindowsFormsHost host1 = new WindowsFormsHost();
             host1.Child = display;
-            // host1.Width = 560;
-            // host1.Height = 200;
-            //Grid.SetRow(host1, 0);
-            //Grid.SetColumn(host1, 0);
             GridControls.Children.Add(host1);
             //------------------------------------------------
         }

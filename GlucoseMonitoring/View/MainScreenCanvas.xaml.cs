@@ -144,7 +144,9 @@ namespace GlucoseMonitoring.View
 
             if ((bool)MSScreenControls.TypeCalculation.IsChecked)
             {
-                MSScreenControls.Result = (Math.Max(SumTop, Bottom) - Math.Min(SumTop, Bottom)).ToString();
+                double tmp = (Math.Max(SumTop, Bottom) - Math.Min(SumTop, Bottom));
+                MSScreenControls.Result = tmp.ToString();
+                _result.Text = tmp.ToString();
             }
             else
             {
