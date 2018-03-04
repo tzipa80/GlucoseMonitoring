@@ -47,16 +47,18 @@ namespace GlucoseMonitoring
           //  MWwebcam.InitializeWebCam(ref imgVideo);
         }
 
-        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        private void Button_Click_Save(object sender, RoutedEventArgs e)
         {
             //MW_MSC.MWwebcam.ResolutionSetting();
             //MW_MSC.MWwebcam.AdvanceSetting();
+            Helper.SaveImageCapture((BitmapSource)MW_MSC.MSSelectedArea.imgVideo.Source);
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             //MW_MSC.MWwebcam.ResolutionSetting();
-            Helper.SaveImageCapture((BitmapSource)MW_MSC.MSSelectedArea.imgVideo.Source);
+            MW_MSC.MWwebcam.AdvanceSetting();
+            //Helper.SaveImageCapture((BitmapSource)MW_MSC.MSSelectedArea.imgVideo.Source);
         }
 
         private void MW_MSC_Loaded(object sender, RoutedEventArgs e)

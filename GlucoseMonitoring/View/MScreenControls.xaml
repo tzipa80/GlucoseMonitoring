@@ -26,6 +26,12 @@
                 <Button Style="{DynamicResource SquareButtonStyle}" Click="Button_Click" >Clear Plotter</Button>
                 
             </Grid>
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                <Label FontSize="20" FontFamily="Stencil" >Time to recoord:</Label>
+                <TextBox x:Name="TimeText" FontSize="20"  FontFamily="Stencil" MinWidth="80">300</TextBox>
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

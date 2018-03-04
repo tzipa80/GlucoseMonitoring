@@ -13,7 +13,7 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
         Title="{DynamicResource MainTitleStr}" 
-        Loaded="MetroWindow_Loaded" Width="1340" Height="827">
+        Loaded="MetroWindow_Loaded" Width="1010" Height="827">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -45,7 +45,7 @@
             <Button Content="FirstBtn" Click="Button_Click" />
 
             <!-- Second Button-->
-            <Button Click="Button_Click_Settings">
+            <Button Click="Button_Click_Save">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20"
                                Height="20"
@@ -57,7 +57,7 @@
                     </Rectangle>
                     <TextBlock
                    VerticalAlignment="Center"
-                   Text="deploy cupcakes" />
+                   Text="Save" />
                 </StackPanel>
             </Button>
             <!-- Second Button END-->
@@ -70,16 +70,16 @@
 
     <Grid x:Name="MainGrid" Height="800">
 
-        <Grid x:Name="MainGridLeftScreen" Margin="0,0,1005,0">
+        <!--Grid x:Name="MainGridLeftScreen" Margin="0,0,1005,0">
             <custom_cntrls:SecondScreenCanvas x:Name="SS_Canvas"/>
-        </Grid>
+        </-->
 
 
         <!--Image x:Name="imgVideo" Grid.Column="2" Stretch="Fill"/-->
         <!--custom_cntrls:SelectedArea  Grid.Column="2" Clip="{Binding Clip.Bounds, ElementName=MWgrid, Mode=OneWay}"/-->
 
-        <Grid x:Name="MainGridRightScreen" Margin="330,0,0,0">
-          <custom_cntrls:MainScreenCanvas x:Name="MW_MSC"/>
+        <Grid x:Name="MainGridRightScreen" >
+            <custom_cntrls:MainScreenCanvas x:Name="MW_MSC"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

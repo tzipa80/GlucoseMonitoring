@@ -42,7 +42,7 @@ namespace GlucoseMonitoring.View
             //------------------------------------------------
 
             mTimer = new PrecisionTimer.Timer();
-            mTimer.Period = 50;                         // 20 fps
+            mTimer.Period = 500;                         // 20 fps
             mTimer.Tick += new EventHandler(OnTimerTick);
             //lastTimerTick = DateTime.Now;
             //mTimer.Start(); //Removed to MSScreenResults.Calculate toggle button
@@ -76,7 +76,7 @@ namespace GlucoseMonitoring.View
             using (display = new GraphLib.PlotterDisplayEx())
             {
                 display = new GraphLib.PlotterDisplayEx();
-                display.Smoothing = System.Drawing.Drawing2D.SmoothingMode.HighQuality; //System.Drawing.Drawing2D.SmoothingMode.HighQuality; System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+                display.Smoothing = System.Drawing.Drawing2D.SmoothingMode.HighSpeed; //System.Drawing.Drawing2D.SmoothingMode.HighQuality; System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                 // 
                 // display
                 // 
@@ -101,7 +101,7 @@ namespace GlucoseMonitoring.View
                 //display.DataSources[0].Name = "Glucose Monitoring";
                 display.DataSources[0].OnRenderXAxisLabel += RenderXLabel;
 
-                display.DataSources[0].Length = 600;
+                display.DataSources[0].Length = int.Parse(TimeText.Text); ;
                 display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
                 display.DataSources[0].AutoScaleY = true;
                 display.DataSources[0].AutoScaleX = true;
@@ -126,6 +126,7 @@ namespace GlucoseMonitoring.View
                     src[i].x = i;
                     src[i].y = 0; 
                 }
+                iter = 0;
             }
         }
 

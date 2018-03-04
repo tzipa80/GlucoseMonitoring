@@ -17,11 +17,11 @@
 
             <Image Name="imgVideoBottom" Stretch="Fill"/>
         </Grid>
-        <Grid Margin="10,320,10,250">
-            <Button Style="{DynamicResource SquareButtonStyle}" >
+        <!--Grid Margin="10,320,10,250">
+            <Button Style="{DynamicResource SquareButtonStyle}" Click="ButtonSave_Click" >
                 Save
             </Button>
-        </Grid>
+        </-->
 
         <Grid x:Name="MSRGridForDiffImage" Background="Coral" Margin="10,370,10,95">
 

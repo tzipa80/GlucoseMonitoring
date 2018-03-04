@@ -36,7 +36,9 @@
             </TabControl.Resources>
 
             <TabItem Controls:ControlsHelper.HeaderFontSize="24" Header="Video" >
-
+                <Grid>
+                    
+                </Grid>
             </TabItem>
             <Controls:MetroTabItem Header="Laser" CloseButtonEnabled="True" Background="Azure">
                 <StackPanel>
@@ -47,8 +49,8 @@
                 <!--exampleViews:TextExamples DataContext="{Binding}" /-->
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="appe">
-                <TextBlock Name="appe_text"  FontSize="30" />
-            </Controls:MetroTabItem>
+                <TextBlock Name="appe_text"  FontSize="30" >DDDDDDD</TextBlock>
+                </Controls:MetroTabItem>
         </Controls:MetroAnimatedSingleRowTabControl>
 
         <Controls:MetroProgressBar></Controls:MetroProgressBar>
