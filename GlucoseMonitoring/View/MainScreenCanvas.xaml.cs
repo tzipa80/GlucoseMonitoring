@@ -161,7 +161,13 @@ namespace GlucoseMonitoring.View
             double average = floatPixelData.Average();
             double sumOfSquaresOfDifferences = floatPixelData.Select(val => (val - average) * (val - average)).Sum();
             double sd = Math.Sqrt(sumOfSquaresOfDifferences / floatPixelData.Length);
-            sd *= double.Parse(MSScreenControls.FactorText.Text);
+            
+            //Bug when clear all from FactorText it was exeption due to empty TextBox: now it's checked
+            if (MSScreenControls.FactorText.GetLineLength(0) > 0)
+            {
+                sd *= double.Parse(MSScreenControls.FactorText.Text, System.Globalization.CultureInfo.InvariantCulture);
+            } 
+
             _result.Text = sd.ToString("#");
             MSScreenControls.Result = _result.Text;
         }

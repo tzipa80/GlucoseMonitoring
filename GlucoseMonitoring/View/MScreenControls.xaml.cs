@@ -12,7 +12,7 @@ namespace GlucoseMonitoring.View
     /// </summary>
     public partial class MScreenControls : UserControl
     {
-        GraphLib.PlotterDisplayEx display = null;
+        PlotterDisplayEx display = null;
         public PrecisionTimer.Timer mTimer = null;
         //private DateTime lastTimerTick = DateTime.Now;
         // BackgroundWorker _backgroundWorker = new BackgroundWorker();
@@ -101,7 +101,7 @@ namespace GlucoseMonitoring.View
                 //display.DataSources[0].Name = "Glucose Monitoring";
                 display.DataSources[0].OnRenderXAxisLabel += RenderXLabel;
 
-                display.DataSources[0].Length = int.Parse(TimeText.Text); ;
+                display.DataSources[0].Length = int.Parse(TimeText.Text);
                 display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
                 display.DataSources[0].AutoScaleY = true;
                 display.DataSources[0].AutoScaleX = true;
