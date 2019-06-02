@@ -102,7 +102,7 @@ namespace GlucoseMonitoring.View
                 display.DataSources[0].OnRenderXAxisLabel += RenderXLabel;
 
                 display.DataSources[0].Length = int.Parse(TimeText.Text);
-                display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
+                display.PanelLayout = PlotterGraphPaneEx.LayoutMode.STACKED; ////  STACKED
                 display.DataSources[0].AutoScaleY = true;
                 display.DataSources[0].AutoScaleX = true;
                 display.DataSources[0].SetDisplayRangeY(0, 300);
@@ -218,6 +218,48 @@ namespace GlucoseMonitoring.View
             host1.Child = display;
             GridControls.Children.Add(host1);
             //------------------------------------------------
+        }
+
+        private void Button_Click_Logging(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DateTime aDate = DateTime.Now;
+            Microsoft.Office.Interop.Excel.Application oXL = null;
+            //Microsoft.Office.Interop.Excel._Workbook oWB = null;
+            Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
+
+            try
+            {
+                oXL = new Microsoft.Office.Interop.Excel.Application();
+                oXL.Workbooks.Add();
+                //oWB = oXL.Workbooks.Add();
+                //oWB = oXL.Workbooks.Open("D:\\MyExcel.xlsx");
+                oSheet = oXL.ActiveSheet; // String.IsNullOrEmpty("GlucoseMonitoring") ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets["GlucoseMonitoring"];
+
+                cPoint[] src = display.DataSources[0].Samples;
+
+                for (int i = 1; i < display.DataSources[0].Length; i++)
+                {
+                    oSheet.Cells[i, 1] = i;
+                    oSheet.Cells[i, 2] = src[i].y;
+                }
+
+                oSheet.SaveAs(string.Format(@"{0}\{1:s}.xlsx", Environment.CurrentDirectory, aDate.ToString("MM-dd-HH-mm-ss")));
+                
+
+                //MessageBox.Show("Done!");
+            }
+            catch (Exception ex)
+            {
+               // MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+               // if (oWB != null)
+               //     oWB.Close();
+                if (oXL != null)
+                    oXL.Quit();
+
+            }
         }
     }
 }

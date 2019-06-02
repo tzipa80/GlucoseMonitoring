@@ -41,7 +41,6 @@
         <Grid Margin="10,560,10,10">
 
             <ToggleButton x:Name="Calculate"   >
-                
                 Calculate
             </ToggleButton>
         </Grid>

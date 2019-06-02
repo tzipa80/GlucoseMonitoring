@@ -42,6 +42,13 @@ namespace GlucoseMonitoring.View
         private TextBlock _pakaz;
         private TextBox _result;
 
+        private int row;
+        //private int col = 0;
+        private DateTime DiffDate;
+        private Microsoft.Office.Interop.Excel.Application DiffoXL = null;
+        //private Microsoft.Office.Interop.Excel._Workbook DiffoWB = null;
+        private Microsoft.Office.Interop.Excel._Worksheet DiffoSheet = null;
+
         public string ResultStr { get { return _result.Text;  } }
 
         public MainScreenCanvas()
@@ -56,6 +63,13 @@ namespace GlucoseMonitoring.View
             _FrameImageCropDiff = MSScreenResults.imgVideoDiff;
             _pakaz = MSSelectedArea.pakaz;//MSScreenResults.pakaz;
             _result = MSScreenResults.Result;
+           // DiffDate = DateTime.Now;
+
+           // row = 1;
+          //  DiffoXL = new Microsoft.Office.Interop.Excel.Application();
+            //DiffoWB = DiffoXL.Workbooks.Open(string.Format(@"{0}\{1:s}.xlsx", Environment.CurrentDirectory, DiffDate.ToString("MM-dd-HH-mm-ss")));
+          //  DiffoXL.Workbooks.Add();
+          //  DiffoSheet = DiffoXL.ActiveSheet;//String.IsNullOrEmpty("GlucoseMonitoring") ? (Microsoft.Office.Interop.Excel._Worksheet)DiffoWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)DiffoWB.Worksheets["GlucoseMonitoring"];
         }
 
         private CroppedBitmap _DoCropCP(BitmapSource bitmap, Int32Rect rec)
@@ -90,10 +104,28 @@ namespace GlucoseMonitoring.View
             {
                 _UpdateDiffImage();
                 MSScreenControls.mTimer.Start();
+                if (DiffoSheet == null)
+                {
+
+                    DiffDate = DateTime.Now;
+                    row = 1;
+                    DiffoXL = new Microsoft.Office.Interop.Excel.Application();
+                    DiffoXL.Workbooks.Add();
+                    DiffoSheet = DiffoXL.ActiveSheet;
+
+                }
             }
             else
             {
                 MSScreenControls.mTimer.Stop();
+                if (DiffoSheet != null)
+                {
+                    DiffoSheet.SaveAs(string.Format(@"{0}\diff_{1:s}.xlsx", Environment.CurrentDirectory, DiffDate.ToString("MM-dd-HH-mm-ss")));
+                    DiffoXL.Quit();
+                    DiffoSheet = null;
+                }
+
+                
             }
         }
 
@@ -117,7 +149,7 @@ namespace GlucoseMonitoring.View
             WriteableBitmap WBBottomImage = _CreateWB(ImageTypeE.Bottom, ref pixelDataBottom, ref widthInByteBottom);
             // WriteableBitmap WBDiffImage = _CreateWB(ImageTypeE.Diff, ref pixelDataDiff, ref widthInByteDiff);
 
-            _pakaz.Text = string.Format("{0} ; {1}", WBTopImage.Format.BitsPerPixel, pixelDataTop.Length);
+            //_pakaz.Text = string.Format("{0} ; {1}", WBTopImage.Format.BitsPerPixel, pixelDataTop.Length);
             FloatPixelData = new double[pixelDataTop.Length];
             //FloatPixelDataSumTop = new double[pixelDataTop.Length];
             //FloatPixelDataSumBottom = new double[pixelDataTop.Length];
@@ -137,6 +169,16 @@ namespace GlucoseMonitoring.View
 
                 FloatPixelData[i] = pixelDataTop[i];
             }
+
+            //_pakaz.Text = string.Format("{0} ; {1}", SumTop, Bottom);
+            if (DiffoSheet != null)
+            {
+                DiffoSheet.Cells[row, 1] = row;
+                DiffoSheet.Cells[row, 2] = SumTop;
+                DiffoSheet.Cells[row, 3] = Bottom;
+                row++;
+            }
+            _pakaz.Text = string.Format("{0}", row);
 
             WBTopImage.WritePixels(new Int32Rect(0, 0, (int)WBTopImage.Width, (int)WBTopImage.Height), pixelDataTop, (int)widthInByteTop, 0);
 
@@ -198,6 +240,16 @@ namespace GlucoseMonitoring.View
 
             widthInByte = widthInByteInternal;
             return mImage;
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            //if (DiffoWB != null)
+            //    DiffoWB.Close();
+            if (DiffoXL != null)
+                DiffoXL.Quit();
+            //if (DiffoSheet != null)
+            //    DiffoSheet.Delete();
         }
     }
 }

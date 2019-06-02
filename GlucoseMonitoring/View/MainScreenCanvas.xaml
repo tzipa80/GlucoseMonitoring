@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GlucoseMonitoring.View"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Unloaded="UserControl_Unloaded">
     <Grid Name="MSGrid" Background="Transparent" ClipToBounds="True" Width="1000" Height="800">
 
         <Grid x:Name="MSGridSelactedArea" Height="600" Background="LightCoral" Width="800" Margin="0,0,200,200">
